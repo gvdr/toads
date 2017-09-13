@@ -13,16 +13,19 @@ Let's start by querying the `sqlite_master` (present in every sqlite database) t
 SELECT * FROM sqlite_master
 ```
 
-What are the most common first letters for album titles? Let's count the number of albums having each first letter using SQL and then plot the result in R:
+Which are the businesses committing the most violations? Let's count the number of violation for business using SQL and then plot the result in R:
 
 ```sql
---! albums_per_letter =
-SELECT substr(Title,1,1) AS Letter, count(AlbumId) AS Albums
-FROM Album
-GROUP BY Letter
+--! violation_per_business =
+SELECT *, count(ViolationTypeID) AS number_crimes
+FROM violations
+GROUP BY business_id
 ```
 
 ```r
-#! (albums_per_letter)
-ggplot(albums_per_letter, aes(x=Letter, y=Albums)) + geom_bar(stat='identity')
-```
+#! (violations_per_business)
+library(dplyr)
+violations_per_business %>%
+filter(number_crimes > 30) %>% 
+ggplot(aes(x=reorder(business_id, -number_crimes), y=number_crimes)) +
+  geom_bar(stat='identity')```
