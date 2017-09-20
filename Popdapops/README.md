@@ -51,7 +51,9 @@ function we have seen in Step 1.)
 
 ```sql
 --!
-
+SELECT artist_name, sum(_____) AS total_us_sales
+FROM albums
+WHERE artist_name == _____
 ```
 
 Step 3.  What is the total US sale (
@@ -64,7 +66,9 @@ and the aggregation function
 
 ```sql
 --!
-
+SELECT artist_name, sum(_____) AS total_us_sales
+FROM albums
+GROUP BY _____
 ```
 
 ### Challenge 3
@@ -88,7 +92,101 @@ SELECT artist_name, length_seconds
 FROM albums JOIN tracks ON albums.id == tracks.album_id
 ```
 
-Step 2. 
+Step 2. What is the birth date of the artist with most awards?  You will need a proper `JOIN` operation: which two table should you join? On which field?
+
+```sql
+--!
+SELECT artist_name, birthdate, count( ) AS number_of_awards
+FROM _____ JOIN _____ ON _____._____ == _____._____
+GROUP BY artist_name
+ORDER BY number_of_awards DESC
+LIMIT 2
+```
+
+Step 3. How many awards did the youngest artist win? Change the sorting from the previous code (thus, copy and paste the `JOIN` operation) to get the answer.
+
+```sql
+--!
+SELECT artist_name, birthdate, count( ) AS number_of_awards
+FROM _____ JOIN _____ ON _____._____ == _____._____
+GROUP BY artist_name
+ORDER BY ______ ____
+LIMIT 2
+```
+
+Step 4. Which artist won the most awards in a single year? Group wisely!
+
+```sql
+--!
+SELECT artist_name, count( ) AS number_of_awards
+FROM _____ JOIN _____ ON _____._____ == _____._____
+GROUP BY artist_name, _____
+ORDER BY ______ ____
+LIMIT 2
+```
+
+Step 5. (optional) Which artist wrote the album with most songs? You'll need a double `JOIN`, some grouping, counting and ordering. Fill in the code.
+
+```sql
+--!
+SELECT artist_name, albums.release_date, count( ) AS number_of_songs, albums.title
+FROM artists JOIN albums ON albums.artist_name == artists.name
+             JOIN tracks ON albums.id == tracks.album_id
+GROUP BY albums.title
+ORDER BY number_of_songs DESC
+LIMIT 4
+```
+
+Step 6. (optional) Which artist wrote the longest album? You'll need a double `JOIN`, some grouping, summing and ordering. Fill in the code.
+
+```sql
+--!
+SELECT _____________, sum(tracks.length_seconds) / 60 AS album_length_minutes
+FROM artists JOIN _____________ ON albums.____ == ____.____
+             JOIN _____________ ON albums.____ == ____.____
+GROUP BY _____________
+ORDER BY _____________ _____________
+LIMIT 4
+```
+
+## Challenge 4
+
+One step. Based on the previous guided exploration, let's try to do something automously. Think about a question you'd like to ask, and how you can solve it. The question can be simple or complex. Require one or two or more joins. It's up to you!
+
+```sql
+--!
+---- your code here
+```
+
+## Challenge 5
+
+So far we dealt with SQL. There's R as well! Data is handled, wrangled, and analysed in R in a similar way to SQL. We will use the `tidyverse` package. The _tidy_ in `tidyverse` comes from the concept of **tidy data** ([here](http://vita.had.co.nz/papers/tidy-data.html) presented by Hadley Wickham). In particular, R's tidyverse likes "dataframes". A data frame is similar to our Relational Data models: it is a collection of rows (observations) and columns (features).
+
+In Stencila (and otherwhere) SQL and R can speak. To pass some table (or view) from SQL to R we first declare the output of an SQL query (we assign it to a variable):
+
+```sql
+--! albums5 =
+SELECT *
+FROM albums
+ORDER BY release_date DESC
+LIMIT 5
+```
+
+and when we use R we offer the just declared variable (_albums5_):
+
+```r
+#! (albums5)
+albums5
+```
+
+In R we can use packages (collection of data and functions that extends R abilities, tidyverse is one of those) by calling `library( ... )` and writing the name of the package inplace of the dots. Tidyverse provide similar capabilities of SQL (selecting features, filtering, sorting, ...)
+
+```r
+#! (albums5)
+library(tidyverse)
+albums5 %>%
+filter(peak_aus == 1)
+```
 
 ## Outro
 
