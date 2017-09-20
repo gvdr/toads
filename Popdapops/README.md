@@ -160,6 +160,8 @@ One step. Based on the previous guided exploration, let's try to do something au
 
 ## Challenge 5
 
+### Introduction:
+
 So far we dealt with SQL. There's R as well! Data is handled, wrangled, and analysed in R in a similar way to SQL. We will use the `tidyverse` package. The _tidy_ in `tidyverse` comes from the concept of **tidy data** ([here](http://vita.had.co.nz/papers/tidy-data.html) presented by Hadley Wickham). In particular, R's tidyverse likes "dataframes". A data frame is similar to our Relational Data models: it is a collection of rows (observations) and columns (features).
 
 In Stencila (and otherwhere) SQL and R can speak. To pass some table (or view) from SQL to R we first declare the output of an SQL query (we assign it to a variable):
@@ -199,6 +201,40 @@ Here is a (incomplete) table of commands in SQL and in R's tidyverse for a quick
 | `GROUP BY A, B`| `group_by(A, B)` |
 | `ORDER BY A`, `ORDER BY A DESC`  | `arrange(A)`, `arrange(-A)` |
 | `LIMIT 5` | `sample_n(5)` |
+
+
+Moreover, tidyverse come with advanced join possibilites. Our SQL operation
+`table1 JOIN table2 ON table1.A == table2.B` becomes in tidyverse
+`table1 %>% left_join(table2, by = c("A" = "B"))`. There are many other joins in tidyverse: take a look here https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html.
+
+### Your turn
+
+Step 1. Declare two variable from SQL queries, both having information on the artists (it's up to you to choose what information you want to gather, from what tables and through what aggregation).
+
+```sql
+--! table1 =
+SELECT ______
+FROM _____
+GROUP BY artist_name
+```
+
+and
+
+```sql
+--! table2 =
+SELECT ______
+FROM _____
+GROUP BY artist_name
+```
+
+Now, join them using tidyverse:
+
+```r
+#! (table1, table2)
+library(tidyverse)
+table1 %>%
+  left_join(table2, by = c(____ = ____))
+```
 
 
 ## Outro
