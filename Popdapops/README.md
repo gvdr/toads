@@ -129,11 +129,11 @@ Step 5. (optional) Which artist wrote the album with most songs? You'll need a d
 
 ```sql
 --!
-SELECT artist_name, albums.release_date, count( ) AS number_of_songs, albums.title
-FROM artists JOIN albums ON albums.artist_name == artists.name
-             JOIN tracks ON albums.id == tracks.album_id
-GROUP BY albums.title
-ORDER BY number_of_songs DESC
+SELECT artist_name, albums.release_date, ____ AS number_of_songs, albums.title
+FROM artists JOIN albums ON artists.____ == albums.____
+             JOIN tracks ON albums.____ == tracks.____
+GROUP BY albums.____
+ORDER BY ____
 LIMIT 4
 ```
 
@@ -142,10 +142,10 @@ Step 6. (optional) Which artist wrote the longest album? You'll need a double `J
 ```sql
 --!
 SELECT _____________, sum(tracks.length_seconds) / 60 AS album_length_minutes
-FROM artists JOIN _____________ ON albums.____ == ____.____
-             JOIN _____________ ON albums.____ == ____.____
+FROM artists JOIN _____________ ON ____.____ == ____.____
+             JOIN _____________ ON ____.____ == ____.____
 GROUP BY _____________
-ORDER BY _____________ _____________
+ORDER BY _____________
 LIMIT 4
 ```
 
@@ -166,7 +166,7 @@ In Stencila (and otherwhere) SQL and R can speak. To pass some table (or view) f
 
 ```sql
 --! albums5 =
-SELECT *
+SELECT artist_name, release_date, title, peak_aus
 FROM albums
 ORDER BY release_date DESC
 LIMIT 5
@@ -179,14 +179,27 @@ and when we use R we offer the just declared variable (_albums5_):
 albums5
 ```
 
-In R we can use packages (collection of data and functions that extends R abilities, tidyverse is one of those) by calling `library( ... )` and writing the name of the package inplace of the dots. Tidyverse provide similar capabilities of SQL (selecting features, filtering, sorting, ...)
+In R we can use packages (collection of data and functions that extends R abilities, tidyverse is one of those) by calling `library( ... )` and writing the name of the package inplace of the dots. Tidyverse provide similar capabilities of SQL (selecting features, filtering, sorting, ...). You can concatenate operations by using `%>%` (a "pipe" operator).
 
 ```r
 #! (albums5)
 library(tidyverse)
 albums5 %>%
-filter(peak_aus == 1)
+filter(peak_aus == 1) %>%
+select(-release_date)
 ```
+
+Here is a (incomplete) table of commands in SQL and in R's tidyverse for a quick reference. `A`, `B`, and `C` are three features of a table.
+
+| SQL | Tidyverse |
+|------|----------|
+| `SELECT A, B, C` | `select(A, B, C)` |
+|`WHERE A == 3` | `filter(A == 3)` |
+| `FROM` | no strict equivalent, we can declare the dataframe to work on |
+| `GROUP BY A, B`| `group_by(A, B)` |
+| `ORDER BY A`, `ORDER BY A DESC`  | `arrange(A)`, `arrange(-A)` |
+| `LIMIT 5` | `sample_n(5)` |
+
 
 ## Outro
 
