@@ -15,4 +15,20 @@ Notice that this is rather large dataset, with many columns. An explanation of t
 
 ### Instructions
 
-To work on this file either use the given online url () or download it (together with the database) and open it with stencila from Rstudio.
+To work on this file either use the given online [url](http://open.stenci.la/?address=github://gvdr/toads/SchoolCal&peers=http://cloud.stenci.la/?ticket=kiwi) or download it (together with the database) and open it with stencila from Rstudio.
+
+*  Try to understand what's in the database
+*  Create (either with some software or with pen and paper) a diagram of the tables and their possible relationships.
+*  Take a look at some row of data, to get a taste of what they contain.
+*  Use R to produce some exploratory plot
+*  Formulate a question about the data and try to answer using some SQL queries (and some R code, if you dare)
+*  Don't hesitate to ask me or one of the TAs for help!
+
+## It's up to you now:
+
+Remember to use the free form text to document what you are trying to achieve with the code!
+
+```sql
+--!
+
+```
